@@ -8,10 +8,11 @@
 // Callback function. Send GET request to the server and call an anonymous
 // success function when the response is received.
 function showFortune(evt) {
-    // Call.
-    $.get("/fortune", function (fortune) {
-                                    $('#fortune-text').html(fortune);
-    });
+    $.get("/fortune",
+          function (fortune) {
+                $('#fortune-text').html(fortune);
+          }
+    );
 }
 
 $('#get-fortune-button').on('click', showFortune);
@@ -25,9 +26,19 @@ $('#get-fortune-button').on('click', showFortune);
 function showWeather(evt) {
     evt.preventDefault();
 
-    var url = "/weather?zipcode=" + $("#zipcode-field").val();
+    //Changed /weather?zipcode= to /weather.json?zipcode=
+    var url = "/weather.json?zipcode=" + $("#zipcode-field").val();
 
     // TODO: request weather with that URL and show the forecast in #weather-info
+
+    // URL passed as first parameter to .get() must match route name in Flask!
+    $.get(url,
+          // Anonymous function, a callback that happens when request 
+          // is successful.  
+          function(results) {
+                $('#weather-info').html(results.forecast);
+          }
+    );
 }
 
 $("#weather-form").on('submit', showWeather);
