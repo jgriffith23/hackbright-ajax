@@ -3,9 +3,15 @@
 
 // PART 1: SHOW A FORTUNE
 
-function showFortune(evt) {
+// TODO: get the fortune and show it in the #fortune-text div
 
-    // TODO: get the fortune and show it in the #fortune-text div
+// Callback function. Send GET request to the server and call an anonymous
+// success function when the response is received.
+function showFortune(evt) {
+    // Call.
+    $.get("/fortune", function (fortune) {
+                                    $('#fortune-text').html(fortune);
+    });
 }
 
 $('#get-fortune-button').on('click', showFortune);
